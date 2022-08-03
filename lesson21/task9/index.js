@@ -12,5 +12,3 @@ export const finishList = () => {
 	six.textContent = '6';
 	document.querySelector('.special').after(six);
 };
-
-finishList();

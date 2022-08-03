@@ -9,5 +9,3 @@ export const finishForm = () => {
 		.querySelector('input[name = "password"]')
 		.setAttribute('type', 'password');
 };
-
-finishForm();
