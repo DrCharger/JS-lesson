@@ -18,14 +18,15 @@ let listElem = document.querySelector('.list');
 
 const renderTasks = (tasksList) => {
 	const idn = generatorNum(1, tasksList.length).map((price) => price);
+	tasksList.map((elem, i) => (elem.id = idn[i]));
 	const tasksElems = tasksList
 		.sort((a, b) => a.done - b.done)
-		.map(({ text, done }, i) => {
+		.map(({ text, done, id }) => {
 			const listItemElem = document.createElement('li');
 			listItemElem.classList.add('list__item');
 			const checkbox = document.createElement('input');
 			checkbox.setAttribute('type', 'checkbox');
-			checkbox.setAttribute('data-id', idn[i]);
+			checkbox.setAttribute('data-id', id);
 			checkbox.checked = done;
 			checkbox.classList.add('list__item-checkbox');
 			if (done) {
@@ -52,12 +53,12 @@ const killAllTasks = () => {
 const checkbox = document.querySelectorAll(`.list__item-checkbox`);
 const render = (tasksList, idNum) => {
 	tasksList
-		.filter((elem, id) => (id === idNum - 1 ? elem : undefined))
+		.filter((elem) => (elem.id === Number(idNum) ? elem : undefined))
 		.map((elem) => {
 			if (elem.done === false) {
-				return (elem.done = true);
+				elem.done = true;
 			} else if (elem.done === true) {
-				return (elem.done = false);
+				elem.done = false;
 			}
 		});
 	killAllTasks();
@@ -67,14 +68,7 @@ const render = (tasksList, idNum) => {
 };
 
 const getDone = (event) => {
-	if (event.target.checked === false) {
-		// event.target.closest('.list__item').classList.remove('list__item_done');
-		render(tasks, event.target.dataset.id);
-	}
-	if (event.target.checked === true) {
-		// event.target.closest('.list__item').classList.add('list__item_done');
-		render(tasks, event.target.dataset.id);
-	}
+	render(tasks, event.target.dataset.id);
 };
 
 const addNewTask = (tasksList) => {
@@ -85,7 +79,7 @@ const addNewTask = (tasksList) => {
 	const b = {};
 	b.text = inputElem.value;
 	b.done = false;
-	b['data-id'] = 0;
+	b.id = 0;
 	tasksList.push(b);
 	inputElem.value = '';
 	killAllTasks();
