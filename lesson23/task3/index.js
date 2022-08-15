@@ -55,9 +55,9 @@ const render = (tasksList, idNum) => {
 		.filter((elem, id) => (id === idNum - 1 ? elem : undefined))
 		.map((elem) => {
 			if (elem.done === false) {
-				elem.done = true;
+				return (elem.done = true);
 			} else if (elem.done === true) {
-				elem.done = false;
+				return (elem.done = false);
 			}
 		});
 	killAllTasks();
