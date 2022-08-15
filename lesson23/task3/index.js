@@ -17,7 +17,7 @@ const generatorNum = (from, to) => {
 let listElem = document.querySelector('.list');
 
 const renderTasks = (tasksList) => {
-	const idn = generatorNum(1, tasksList.length).map((price) => price);
+	const idn = generatorNum(1, tasksList.length);
 	tasksList.map((elem, i) => (elem.id = idn[i]));
 	const tasksElems = tasksList
 		.sort((a, b) => a.done - b.done)
@@ -54,21 +54,19 @@ const checkbox = document.querySelectorAll(`.list__item-checkbox`);
 const render = (tasksList, idNum) => {
 	tasksList
 		.filter((elem) => elem.id === Number(idNum))
-		.map((elem) => {
-			if (elem.done === false) {
-				elem.done = true;
-			} else if (elem.done === true) {
-				elem.done = false;
-			}
-		});
+		// eslint-disable-next-line no-return-assign
+		.map((elem) =>
+			elem.done === false ? (elem.done = true) : (elem.done = false),
+		);
+
 	killAllTasks();
 	renderTasks(tasks);
 	const checkbox = document.querySelectorAll(`.list__item-checkbox`);
-	checkbox.forEach((elem) => elem.addEventListener('change', getDone));
-};
-
-const getDone = (event) => {
-	render(tasks, event.target.dataset.id);
+	checkbox.forEach((elem) =>
+		elem.addEventListener('change', (event) =>
+			render(tasks, event.target.dataset.id),
+		),
+	);
 };
 
 const addNewTask = (tasksList) => {
@@ -79,16 +77,22 @@ const addNewTask = (tasksList) => {
 	const b = {};
 	b.text = inputElem.value;
 	b.done = false;
-	b.id = 0;
 	tasksList.push(b);
 	inputElem.value = '';
 	killAllTasks();
-
 	renderTasks(tasks);
 	const checkbox = document.querySelectorAll(`.list__item-checkbox`);
-	checkbox.forEach((elem) => elem.addEventListener('change', getDone));
+	checkbox.forEach((elem) =>
+		elem.addEventListener('change', (event) =>
+			render(tasks, event.target.dataset.id),
+		),
+	);
 };
 
 btnElem.addEventListener('click', () => addNewTask(tasks));
 
-checkbox.forEach((elem) => elem.addEventListener('change', getDone));
+checkbox.forEach((elem) =>
+	elem.addEventListener('change', (event) =>
+		render(tasks, event.target.dataset.id),
+	),
+);
