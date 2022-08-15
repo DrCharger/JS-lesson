@@ -17,7 +17,7 @@ const generatorNum = (from, to) => {
 let listElem = document.querySelector('.list');
 
 const renderTasks = (tasksList) => {
-	const id = generatorNum(1, tasksList.length).map((price) => price);
+	const idn = generatorNum(1, tasksList.length).map((price) => price);
 	const tasksElems = tasksList
 		.sort((a, b) => a.done - b.done)
 		.map(({ text, done }, i) => {
@@ -25,7 +25,7 @@ const renderTasks = (tasksList) => {
 			listItemElem.classList.add('list__item');
 			const checkbox = document.createElement('input');
 			checkbox.setAttribute('type', 'checkbox');
-			checkbox.setAttribute('data-id', id[i]);
+			checkbox.setAttribute('data-id', idn[i]);
 			checkbox.checked = done;
 			checkbox.classList.add('list__item-checkbox');
 			if (done) {
@@ -60,9 +60,7 @@ const render = (tasksList, idNum) => {
 				elem.done = false;
 			}
 		});
-	// const sorted = tasksList.sort((a, b) => a.done - b.done);
 	killAllTasks();
-
 	renderTasks(tasks);
 	const checkbox = document.querySelectorAll(`.list__item-checkbox`);
 	checkbox.forEach((elem) => elem.addEventListener('change', getDone));
@@ -70,11 +68,11 @@ const render = (tasksList, idNum) => {
 
 const getDone = (event) => {
 	if (event.target.checked === false) {
-		event.target.closest('.list__item').classList.remove('list__item_done');
+		// event.target.closest('.list__item').classList.remove('list__item_done');
 		render(tasks, event.target.dataset.id);
 	}
 	if (event.target.checked === true) {
-		event.target.closest('.list__item').classList.add('list__item_done');
+		// event.target.closest('.list__item').classList.add('list__item_done');
 		render(tasks, event.target.dataset.id);
 	}
 };
@@ -87,6 +85,7 @@ const addNewTask = (tasksList) => {
 	const b = {};
 	b.text = inputElem.value;
 	b.done = false;
+	b['data-id'] = 0;
 	tasksList.push(b);
 	inputElem.value = '';
 	killAllTasks();
