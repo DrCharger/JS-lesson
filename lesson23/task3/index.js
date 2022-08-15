@@ -53,7 +53,7 @@ const killAllTasks = () => {
 const checkbox = document.querySelectorAll(`.list__item-checkbox`);
 const render = (tasksList, idNum) => {
 	tasksList
-		.filter((elem) => (elem.id === Number(idNum) ? elem : undefined))
+		.filter((elem) => elem.id === Number(idNum))
 		.map((elem) => {
 			if (elem.done === false) {
 				elem.done = true;
