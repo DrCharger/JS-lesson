@@ -14,9 +14,7 @@ const generatorNum = (from, to) => {
 	return result;
 };
 
-const listElem = document.querySelector('.list');
-const btnElem = document.querySelector('.create-task-btn');
-const checkbox = document.querySelectorAll(`.list__item-checkbox`);
+let listElem = document.querySelector('.list');
 
 const renderTasks = (tasksList) => {
 	const idn = generatorNum(1, tasksList.length);
@@ -40,10 +38,33 @@ const renderTasks = (tasksList) => {
 		});
 
 	listElem.append(...tasksElems);
+};
+
+renderTasks(tasks);
+
+const btnElem = document.querySelector('.create-task-btn');
+
+const killAllTasks = () => {
+	listElem.remove();
+	listElem = document.createElement('ul');
+	listElem.classList.add('list');
+	document.querySelector('.todo-list').append(listElem);
+};
+const checkbox = document.querySelectorAll(`.list__item-checkbox`);
+const render = (tasksList, idNum) => {
+	tasksList
+		.filter((elem) => elem.id === Number(idNum))
+		// eslint-disable-next-line no-return-assign
+		.map((elem) =>
+			elem.done === false ? (elem.done = true) : (elem.done = false),
+		);
+
+	killAllTasks();
+	renderTasks(tasks);
 	const checkbox = document.querySelectorAll(`.list__item-checkbox`);
 	checkbox.forEach((elem) =>
 		elem.addEventListener('change', (event) =>
-			change(tasks, event.target.dataset.id),
+			render(tasks, event.target.dataset.id),
 		),
 	);
 };
@@ -58,25 +79,20 @@ const addNewTask = (tasksList) => {
 	b.done = false;
 	tasksList.push(b);
 	inputElem.value = '';
-	listElem.innerHTML = '';
-	renderTasks(tasksList);
-};
-const change = (tasksList, idNum) => {
-	tasksList
-		.filter((elem) => elem.id === Number(idNum))
-		// eslint-disable-next-line no-return-assign
-		.map((elem) =>
-			elem.done === false ? (elem.done = true) : (elem.done = false),
-		);
-	listElem.innerHTML = '';
-	renderTasks(tasksList);
+	killAllTasks();
+	renderTasks(tasks);
+	const checkbox = document.querySelectorAll(`.list__item-checkbox`);
+	checkbox.forEach((elem) =>
+		elem.addEventListener('change', (event) =>
+			render(tasks, event.target.dataset.id),
+		),
+	);
 };
 
 btnElem.addEventListener('click', () => addNewTask(tasks));
 
 checkbox.forEach((elem) =>
 	elem.addEventListener('change', (event) =>
-		change(tasks, event.target.dataset.id),
+		render(tasks, event.target.dataset.id),
 	),
 );
-renderTasks(tasks);
