@@ -73,10 +73,4 @@ const change = (tasksList, idNum) => {
 };
 
 btnElem.addEventListener('click', () => addNewTask(tasks));
-
-checkbox.forEach((elem) =>
-	elem.addEventListener('change', (event) =>
-		change(tasks, event.target.dataset.id),
-	),
-);
 renderTasks(tasks);
