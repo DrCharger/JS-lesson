@@ -41,33 +41,27 @@ const renderTasks = (tasksList) => {
 	listElem.append(...tasksElems);
 };
 
-const addNewTask = (tasksList) => {
+const addNewTask = () => {
+	const tasksList = tasks;
 	const inputElem = document.querySelector('.task-input');
 	if (inputElem.value === '') {
 		return;
 	}
-	const b = {};
-	b.text = inputElem.value;
-	b.done = false;
+	const b = { text: inputElem.value, done: false };
 	tasksList.push(b);
 	inputElem.value = '';
 	listElem.innerHTML = '';
 	renderTasks(tasksList);
 };
-const change = (tasksList, idNum) => {
-	tasksList
-		.filter((elem) => elem.id === Number(idNum))
-		// eslint-disable-next-line no-return-assign
-		.map((elem) =>
-			elem.done === false ? (elem.done = true) : (elem.done = false),
-		);
+const change = (event) => {
+	const a = tasks.find((elem) => elem.id === Number(event.target.dataset.id));
+	// eslint-disable-next-line no-unused-expressions
+	a.done === false ? (a.done = true) : (a.done = false);
 	listElem.innerHTML = '';
-	renderTasks(tasksList);
+	renderTasks(tasks);
 };
 
-btnElem.addEventListener('click', () => addNewTask(tasks));
-listElem.addEventListener('click', (event) =>
-	change(tasks, event.target.dataset.id),
-);
+btnElem.addEventListener('click', addNewTask);
+listElem.addEventListener('click', change);
 
 renderTasks(tasks);
