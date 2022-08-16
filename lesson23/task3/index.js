@@ -42,7 +42,7 @@ const renderTasks = (tasksList) => {
 	listElem.append(...tasksElems);
 	const checkbox = document.querySelectorAll(`.list__item-checkbox`);
 	checkbox.forEach((elem) =>
-		elem.addEventListener('change', (event) =>
+		elem.addEventListener('click', (event) =>
 			change(tasks, event.target.dataset.id),
 		),
 	);
