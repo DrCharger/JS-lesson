@@ -16,7 +16,6 @@ const generatorNum = (from, to) => {
 
 const listElem = document.querySelector('.list');
 const btnElem = document.querySelector('.create-task-btn');
-const checkbox = document.querySelectorAll(`.list__item-checkbox`);
 
 const renderTasks = (tasksList) => {
 	const idn = generatorNum(1, tasksList.length);
@@ -40,12 +39,6 @@ const renderTasks = (tasksList) => {
 		});
 
 	listElem.append(...tasksElems);
-	const checkbox = document.querySelectorAll(`.list__item-checkbox`);
-	checkbox.forEach((elem) =>
-		elem.addEventListener('click', (event) =>
-			change(tasks, event.target.dataset.id),
-		),
-	);
 };
 
 const addNewTask = (tasksList) => {
@@ -73,4 +66,8 @@ const change = (tasksList, idNum) => {
 };
 
 btnElem.addEventListener('click', () => addNewTask(tasks));
+listElem.addEventListener('click', (event) =>
+	change(tasks, event.target.dataset.id),
+);
+
 renderTasks(tasks);
