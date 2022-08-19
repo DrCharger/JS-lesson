@@ -19,9 +19,20 @@ const btnElem = document.querySelector('.create-task-btn');
 
 const renderTasks = (tasksList) => {
 	const idn = generatorNum(1, tasksList.length);
-	tasksList.map((elem, i) => (elem.id = idn[i]));
+
+	tasksList.map((elem, i) => {
+		elem.id = idn[i];
+		if (!elem.hasOwnProperty('time')) {
+			elem.time = new Date();
+		}
+		return elem;
+	});
 	const tasksElems = tasksList
 		.sort((a, b) => a.done - b.done)
+		.sort((a, b) => {
+			if (a.done === true && b.done === true) return b.time - a.time;
+			if (a.done === false && b.done === false) return b.time - a.time;
+		})
 		.map(({ text, done, id }) => {
 			const listItemElem = document.createElement('li');
 			listItemElem.classList.add('list__item');
@@ -57,6 +68,7 @@ const change = (event) => {
 	const a = tasks.find((elem) => elem.id === Number(event.target.dataset.id));
 	// eslint-disable-next-line no-unused-expressions
 	a.done === false ? (a.done = true) : (a.done = false);
+	a.time = new Date();
 	listElem.innerHTML = '';
 	renderTasks(tasks);
 };
