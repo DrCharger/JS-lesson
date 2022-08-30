@@ -1,0 +1,21 @@
+main {
+	height: 100vh;
+}
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.cont__btn {
+	width: 5%;
+	height: 5%;
+	background-color: beige;
+	font-size: 40px;
+}
+
+.cont__value {
+	font-size: 40px;
+	margin: 20px;
+}
