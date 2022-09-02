@@ -5,8 +5,7 @@ export const addImage = (imgSrc, callback) => {
 	const container = document.querySelector('.page');
 	container.append(imageElem);
 	const onImageLoaded = () => {
-		const { width, height } = imageElem;
-		callback(null, { width, height });
+		callback(null, imageElem);
 	};
 	imageElem.addEventListener('load', onImageLoaded);
 	imageElem.addEventListener('error', () => callback('Image load is failed'));
@@ -25,7 +24,6 @@ const onImageLoaded = (error, imgElem) => {
 	sizeElem.textContent = `${width} x ${height}`;
 };
 
-// examples
 // addImage(
 // 	'https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg',
 // 	onImageLoaded,
