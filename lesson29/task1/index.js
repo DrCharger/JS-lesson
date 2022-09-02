@@ -1,4 +1,4 @@
-const addImage = (imgSrc, callback) => {
+export const addImage = (imgSrc, callback) => {
 	const imageElem = document.createElement('img');
 	imageElem.setAttribute('alt', 'My Photo');
 	imageElem.src = imgSrc;
@@ -9,7 +9,7 @@ const addImage = (imgSrc, callback) => {
 		callback(null, { width, height });
 	};
 	imageElem.addEventListener('load', onImageLoaded);
-	imageElem.addEventListener('error', () => callback('Image was damaged'));
+	imageElem.addEventListener('error', () => callback('Image load is failed'));
 };
 
 // callack function
