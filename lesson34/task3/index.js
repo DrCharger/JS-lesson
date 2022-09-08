@@ -37,7 +37,7 @@ const onFormSubmit = (event) => {
 
 	createUser(userData).then(() => {
 		const data = Object.fromEntries(new FormData(formElem));
-		alert(JSON.stringify(data));
+		alert(data);
 		formElem.reset();
 		validity();
 	});
