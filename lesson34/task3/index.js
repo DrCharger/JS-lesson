@@ -31,7 +31,7 @@ const onFormSubmit = (event) => {
 	const password = passwordElem.value;
 	const userName = userElem.value;
 
-	const userData = { email, userName, password };
+	const userData = JSON.stringify({ email, userName, password });
 	console.log(userData);
 
 	createUser(userData)
