@@ -27,20 +27,20 @@ const validity = () => {
 const formElem = document.querySelector('.login-form');
 const onFormSubmit = (event) => {
 	event.preventDefault();
-	const email = emailElem.value;
-	const password = passwordElem.value;
-	const userName = userElem.value;
 
-	const userData = { email, userName, password };
+	const userData = {
+		email: emailElem.value,
+		userName: passwordElem.value,
+		password: userElem.value,
+	};
 	console.log(userData);
 
-	createUser(userData)
-		.then((response) => getUsersList(response))
-		.then((formData) => {
-			alert(JSON.stringify(formData));
-			formElem.reset();
-			validity();
-		});
+	createUser(userData).then(() => {
+		const data = Object.fromEntries(new FormData(formElem));
+		alert(JSON.stringify(data));
+		formElem.reset();
+		validity();
+	});
 };
 
 formElem.addEventListener('input', validity);
