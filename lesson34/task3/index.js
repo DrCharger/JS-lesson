@@ -15,11 +15,6 @@ function createUser(userData) {
 		body: JSON.stringify(userData),
 	});
 }
-
-function getUsersList() {
-	return fetch(baseUrl).then((response) => response.json());
-}
-
 const validity = () => {
 	buttonElem.disabled = formElem.reportValidity() ? false : true;
 };
@@ -35,13 +30,14 @@ const onFormSubmit = (event) => {
 	};
 	console.log(userData);
 
-	createUser(userData).then(() => {
-		const data = Object.fromEntries(new FormData(formElem));
-		alert(data);
-		formElem.reset();
-		validity();
-	});
+	createUser(userData)
+		.then((response) => response.json())
+		.then((result) => {
+			console.log(result);
+			alert(JSON.stringify(result));
+			formElem.reset();
+			validity();
+		});
 };
-
 formElem.addEventListener('input', validity);
 formElem.addEventListener('submit', onFormSubmit);
