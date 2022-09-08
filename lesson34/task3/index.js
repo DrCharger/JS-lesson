@@ -4,21 +4,21 @@ const emailElem = document.querySelector('#email');
 const userElem = document.querySelector('input[name="name"]');
 const passwordElem = document.querySelector('input[name="password"]');
 const buttonElem = document.querySelector('.submit-button');
+const formElem = document.querySelector('.login-form');
 
 function createUser(userData) {
 	return fetch(baseUrl, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json; charset=utf-8',
+			'Content-Type': 'application/json;charset=utf-8',
 		},
 		body: JSON.stringify(userData),
 	});
 }
 const validity = () => {
-	buttonElem.disabled = formElem.reportValidity() ? false : true;
+	buttonElem.disabled = !formElem.reportValidity();
 };
 
-const formElem = document.querySelector('.login-form');
 const onFormSubmit = (event) => {
 	event.preventDefault();
 
