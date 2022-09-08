@@ -36,6 +36,7 @@ const onFormSubmit = (event) => {
 			// const formData = Object.fromEntries(new FormData(formElem));
 			alert(JSON.stringify(formData));
 			formElem.reset();
+			buttonElem.disabled = true;
 		});
 };
 
