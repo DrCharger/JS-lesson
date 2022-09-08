@@ -23,16 +23,14 @@ const validity = () => {
 const onFormSubmit = (event) => {
 	event.preventDefault();
 
-	const userData = {
-		email: emailElem.value,
-		userName: passwordElem.value,
-		password: userElem.value,
-	};
-	formElem.reset();
-	validity();
+	const userData = Object.fromEntries(new FormData(formElem));
+	console.log(userData);
+
 	return createUser(userData)
 		.then((response) => response.json())
 		.then((result) => {
+			formElem.reset();
+			validity();
 			alert(JSON.stringify(result));
 		});
 };
