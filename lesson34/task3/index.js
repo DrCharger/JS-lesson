@@ -20,6 +20,10 @@ function getUsersList() {
 	return fetch(baseUrl).then((response) => response.json());
 }
 
+const validity = () => {
+	buttonElem.disabled = formElem.reportValidity() ? false : true;
+};
+
 const formElem = document.querySelector('.login-form');
 const onFormSubmit = (event) => {
 	event.preventDefault();
@@ -33,15 +37,10 @@ const onFormSubmit = (event) => {
 	createUser(userData)
 		.then((response) => getUsersList(response))
 		.then((formData) => {
-			// const formData = Object.fromEntries(new FormData(formElem));
 			alert(JSON.stringify(formData));
 			formElem.reset();
-			buttonElem.disabled = true;
+			validity();
 		});
-};
-
-const validity = () => {
-	buttonElem.disabled = !formElem.reportValidity();
 };
 
 formElem.addEventListener('change', validity);
