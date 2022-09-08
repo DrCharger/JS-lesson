@@ -22,7 +22,8 @@ function getUsersList() {
 
 const formElem = document.querySelector('.login-form');
 
-buttonElem.setAttribute('disabled', false);
+buttonElem.setAttribute('disabled', true);
+buttonElem.disabled = true;
 
 const onFormSubmit = (event) => {
 	event.preventDefault();
@@ -31,8 +32,9 @@ const onFormSubmit = (event) => {
 	const userName = userElem.value;
 
 	const userData = { email, userName, password };
+	console.log(userData);
 
-	createUser(JSON.stringify(userData))
+	createUser(userData)
 		.then((response) => getUsersList(response))
 		.then(() => {
 			const formData = Object.fromEntries(new FormData(formElem));
