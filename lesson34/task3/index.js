@@ -21,10 +21,6 @@ function getUsersList() {
 }
 
 const formElem = document.querySelector('.login-form');
-
-buttonElem.setAttribute('disabled', true);
-buttonElem.disabled = true;
-
 const onFormSubmit = (event) => {
 	event.preventDefault();
 	const email = emailElem.value;
