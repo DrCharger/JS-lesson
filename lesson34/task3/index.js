@@ -28,12 +28,10 @@ const onFormSubmit = (event) => {
 		userName: passwordElem.value,
 		password: userElem.value,
 	};
-	console.log(userData);
 
 	createUser(userData)
 		.then((response) => response.json())
 		.then((result) => {
-			console.log(result);
 			alert(JSON.stringify(result));
 			formElem.reset();
 			validity();
