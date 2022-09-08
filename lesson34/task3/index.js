@@ -1,16 +1,15 @@
-const baseUrl = 'https://6319a5136b4c78d91b3fe284.mockapi.io/api/v1/userLogin';
+const baseUrl = 'https://6319a5136b4c78d91b3fe284.mockapi.io/api/v1/login';
 
 const emailElem = document.querySelector('#email');
 const userElem = document.querySelector('input[name="name"]');
 const passwordElem = document.querySelector('input[name="password"]');
 const buttonElem = document.querySelector('.submit-button');
-const inputForm = document.querySelector('.form-input');
 
 function createUser(userData) {
 	return fetch(baseUrl, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json;charset=utf-8',
+			'Content-Type': 'application/json; charset=utf-8',
 		},
 		body: JSON.stringify(userData),
 	});
