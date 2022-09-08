@@ -22,13 +22,13 @@ const validity = () => {
 const onFormSubmit = (event) => {
 	event.preventDefault();
 
-	const userData = {
+	let userData = {
 		email: emailElem.value,
 		userName: passwordElem.value,
 		password: userElem.value,
 	};
 
-	JSON.stringify(userData);
+	userData = JSON.stringify(userData);
 
 	createUser(userData)
 		.then((response) => response.json())
