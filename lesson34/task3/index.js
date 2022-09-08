@@ -15,6 +15,7 @@ function createUser(userData) {
 		body: JSON.stringify(userData),
 	});
 }
+
 const validity = () => {
 	buttonElem.disabled = !formElem.reportValidity();
 };
@@ -22,20 +23,17 @@ const validity = () => {
 const onFormSubmit = (event) => {
 	event.preventDefault();
 
-	let userData = {
+	const userData = {
 		email: emailElem.value,
 		userName: passwordElem.value,
 		password: userElem.value,
 	};
-
-	userData = JSON.stringify(userData);
-
-	createUser(userData)
+	formElem.reset();
+	validity();
+	return createUser(userData)
 		.then((response) => response.json())
 		.then((result) => {
 			alert(JSON.stringify(result));
-			formElem.reset();
-			validity();
 		});
 };
 formElem.addEventListener('input', validity);
