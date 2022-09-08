@@ -32,16 +32,16 @@ const onFormSubmit = (event) => {
 
 	createUser(userData)
 		.then((response) => getUsersList(response))
-		.then(() => {
-			const formData = Object.fromEntries(new FormData(formElem));
+		.then((formData) => {
+			// const formData = Object.fromEntries(new FormData(formElem));
 			alert(JSON.stringify(formData));
 			formElem.reset();
 		});
 };
 
-const vadility = () => {
+const validity = () => {
 	buttonElem.disabled = !formElem.reportValidity();
 };
 
-formElem.addEventListener('change', vadility);
+formElem.addEventListener('change', validity);
 formElem.addEventListener('submit', onFormSubmit);
