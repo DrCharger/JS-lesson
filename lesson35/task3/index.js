@@ -3,8 +3,7 @@ import { fetchRepo, fetchUserData } from './gateways.js';
 import { renderUserData } from './user.js';
 import { hideSpinner, showSpinner } from './spinner.js';
 
-const defaultImage =
-	'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHnI9NSpTfvuPKr92wOd5WhOyQlt-MypFxjyK_pRtrAQ&s';
+const defaultImage = 'https://avatars3.githubusercontent.com/u10001.png';
 
 const defaultUser = {
 	avatar_url: defaultImage,
@@ -27,7 +26,7 @@ const onSearchUser = () => {
 		})
 		.then((url) => fetchRepo(url))
 		.then((repoList) => renderRepo(repoList))
-		.catch((err) => alert(err))
+		.catch((err) => alert(err.message))
 		.finally(() => hideSpinner());
 };
 
