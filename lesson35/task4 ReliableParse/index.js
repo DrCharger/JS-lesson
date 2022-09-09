@@ -1,3 +1,9 @@
-const stringUser = JSON.stringify('user');
+export const parseUser = (stringUser) => {
+	try {
+		return JSON.parse(stringUser);
+	} catch (err) {
+		return null;
+	}
+};
 
-export const parseUser = (stringUser) => {};
+parseUser({ name: 'Atomics' });

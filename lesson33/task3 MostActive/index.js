@@ -7,8 +7,7 @@ const date = (days) => {
 
 const fetchRepoById = (days, userId, repoId) => {
 	return fetch(
-		`https://api.github.com/repos/${userId}/${repoId}/commits?since:
-		${date(days)}&per_page=100`,
+		`https://api.github.com/repos/${userId}/${repoId}/commits?&per_page=100`,
 	).then((response) => response.json());
 };
 
