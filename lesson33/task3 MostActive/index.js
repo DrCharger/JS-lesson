@@ -1,48 +1,46 @@
 const date = (days) => {
-	const dateLast = JSON.parse(
-		JSON.stringify(new Date(new Date().setDate(new Date().getDate() - days))),
-	);
-	return `${dateLast}`;
+	return new Date(new Date().setDate(new Date().getDate() - days));
 };
 
-const fetchRepoById = (days, userId, repoId) => {
+const fetchRepoById = (userId, repoId) => {
 	return fetch(
-		`https://api.github.com/repos/${userId}/${repoId}/commits?&per_page=100`,
+		`https://api.github.com/repos/${userId}/${repoId}/commits?per_page=100`,
 	).then((response) => response.json());
 };
 
 const findMostActive = (userData) => {
 	const result = [];
-	let maxCount = 0;
-	const newArr = userData.map((elem) => elem.commit.author);
-	return newArr
-		.filter((el) => {
-			if (result.includes(el.email)) {
-				newArr.find((el2) => (el2.email === el.email ? el2.count++ : null));
-			} else {
-				el.count = 1;
-				delete el.date;
-				result.push(el.email);
-				return el;
-			}
-		})
-		.map((el) => {
-			if (el.count >= maxCount) {
-				maxCount = el.count;
-			}
-			return el;
-		});
-	// .filter((el) => el.count === maxCount);
+	userData.map((el) => {
+		const objElem = result.find((elem) => elem.email === el.email);
+		if (objElem === undefined) {
+			const newObj = {
+				email: el.email,
+				name: el.name,
+				count: 1,
+			};
+			result.push(newObj);
+		} else {
+			++objElem.count;
+		}
+		return el;
+	});
+	return result
+		.sort((a, b) => b.count - a.count)
+		.filter((elem) => elem.count === result[0].count);
 };
 
 const getMostActiveDevs = ({ days, userId, repoId }) => {
-	return fetchRepoById(days, userId, repoId)
-		.then((finded) => findMostActive(finded))
+	return fetchRepoById(userId, repoId)
+		.then((userData) => userData.map((elem) => elem.commit.author))
+		.then((response) =>
+			response.filter((elem) => new Date(elem.date) >= date(days)),
+		)
+		.then((response) => findMostActive(response))
 		.then((r) => console.log(r));
 };
 
 getMostActiveDevs({
 	days: 7,
-	userId: 'ratschlab',
-	repoId: 'metagraph',
+	userId: 'facebook',
+	repoId: 'CacheLib',
 });
