@@ -3,7 +3,7 @@ import { fetchRepo, fetchUserData } from './gateways.js';
 import { renderUserData } from './user.js';
 import { hideSpinner, showSpinner } from './spinner.js';
 
-const defaultImage = 'https://avatars3.githubusercontent.com/u10001.png';
+const defaultImage = 'https://avatars3.githubusercontent.com/u10001';
 
 const defaultUser = {
 	avatar_url: defaultImage,
